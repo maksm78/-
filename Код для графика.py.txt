@@ -1,0 +1,33 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+def f(x):
+    return np.sqrt(x) * np.exp(-x)
+
+a = 0
+b = 1
+n_list = [10, 100, 1000, 10000, 100000]
+
+# формула трапеций
+I_t_list = []
+for n in n_list:
+    h = (b - a) / n
+    I_t = (h / 2) * (f(a) + 2 * np.sum(f(a + ih)) + f(b))
+    I_t_list.append(I_t)
+
+# формула Сипсона
+I_s_list = []
+for n in n_list:
+    h = (b - a) / n
+    I_s = (h / 6) * (f(a) + 4 * np.sum(f(a + 2 * ih)) + 2 * f(a + h) + f(b))
+    I_s_list.append(I_s)
+
+# формула прямоугольников
+I_p_list = []
+for n in n_list:
+    h = (b - a) / n
+    I_p = (h / n) * np.sum(f(a + ih))
+    I_p_list.append(I_p)
+
+# формула Монте-Карло
+I_mc_list = []
